@@ -66,7 +66,7 @@ public class RequestServiceImpl implements RequestService {
             event.setConfirmedRequests(event.getConfirmedRequests() + 1);
             eventRepository.save(event);
         }
-        log.info("Запрос на участие в событие, успешно создан");
+        log.info("Запрос на участие в событии успешно создан");
         return requestMapper.toRequestDto(saveRequest);
     }
 
@@ -88,7 +88,7 @@ public class RequestServiceImpl implements RequestService {
         }
         request.setStatus(RequestState.CANCELED);
         Request saveRequest = requestRepository.save(request);
-        log.info("Запрос на участие в событие, успешно отменен");
+        log.info("Запрос на участие в событие успешно отменен");
         return requestMapper.toRequestDto(saveRequest);
     }
 

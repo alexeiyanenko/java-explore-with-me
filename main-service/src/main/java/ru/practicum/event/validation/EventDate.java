@@ -9,7 +9,7 @@ import java.lang.annotation.RetentionPolicy;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = EventDateValidator.class)
 public @interface EventDate {
-    String message() default "должно содержать дату, которая еще не наступила";
+    String message() default "Требуется дата, которая еще не наступила";
 
     Class<?>[] groups() default {};
 
