@@ -24,14 +24,24 @@ public class StatServiceImpl implements StatService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<ViewStats> getStats(LocalDateTime start, LocalDateTime end, List<String> uris, boolean unique) {
-        if (start.isAfter(end) || start.isAfter(LocalDateTime.now())) {
-            throw new ValidationException("Некорректный диапазон времени");
+        if (start.isAfter(end)) {
+            throw new ValidationException("Некорректный диапазон времени: start позже end");
         }
-        if (unique) {
-            return statRepository.findAllStatsUnique(start, end, uris);
+
+        if (uris == null || uris.isEmpty()) {
+            if (unique) {
+                return statRepository.findStatsUnique(start, end);
+            } else {
+                return statRepository.findStats(start, end);
+            }
         } else {
-            return statRepository.findAllStats(start, end, uris);
+            if (unique) {
+                return statRepository.findStatsUniqueWithUris(start, end, uris);
+            } else {
+                return statRepository.findStatsWithUris(start, end, uris);
+            }
         }
     }
 }
