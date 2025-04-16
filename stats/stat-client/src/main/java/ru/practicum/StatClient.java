@@ -43,19 +43,19 @@ public class StatClient {
     }
 
     public List<ViewStats> getStats(LocalDateTime start, LocalDateTime end, List<String> uris, boolean unique) {
-        String uri = UriComponentsBuilder.fromHttpUrl(baseUrl)
+        String fullUri = UriComponentsBuilder.fromHttpUrl(baseUrl)
                 .path("/stats")
-                .queryParam("start", start.format(FORMATTER))
-                .queryParam("end", end.format(FORMATTER))
-                .queryParam("unique", unique)
+                .queryParam("start", FORMATTER.format(start))
+                .queryParam("end", FORMATTER.format(end))
                 .queryParam("uris", uris)
+                .queryParam("unique", unique)
                 .toUriString();
 
-        log.info("GET request to URI: {}", uri);
+        log.info("GET request to URI: {}", fullUri);
 
         try {
             return restClient.get()
-                    .uri(uri)
+                    .uri(fullUri)
                     .retrieve()
                     .onStatus(HttpStatusCode::is4xxClientError, (req, res) -> {
                         throw new RuntimeException("Client error: " + res.getStatusCode());
@@ -65,6 +65,7 @@ public class StatClient {
                     })
                     .body(new ParameterizedTypeReference<>() {
                     });
+
         } catch (Exception e) {
             log.error("Error while getting stats", e);
             return List.of();
