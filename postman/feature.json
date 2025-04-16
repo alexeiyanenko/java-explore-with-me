@@ -1569,7 +1569,7 @@
 									"pm.test(\"Ошибка валидации — пустой текст\", function () {\r",
 									"    pm.response.to.have.status(400); // ValidationException = BAD_REQUEST\r",
 									"    const error = pm.response.json();\r",
-									"    pm.expect(error.message).to.include(\"Поисковый текст не должен быть пустым\");\r",
+									"    pm.expect(error.message).to.include(\"Текст поискового запроса не должен быть пустым\");\r",
 									"});\r",
 									""
 								],
