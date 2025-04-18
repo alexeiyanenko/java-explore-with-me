@@ -1,2 +1,2 @@
 # java-explore-with-me
-Template repository for ExploreWithMe project.
+[Pull Request для этапа №3](https://github.com/alexeiyanenko/java-explore-with-me/pull/4)
