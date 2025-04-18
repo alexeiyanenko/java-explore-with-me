@@ -39,6 +39,8 @@ public class Comment {
     @Column(name = "created", nullable = false)
     private LocalDateTime created;
 
+    @Column(name = "updated")
+    private LocalDateTime updated;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "event_id")

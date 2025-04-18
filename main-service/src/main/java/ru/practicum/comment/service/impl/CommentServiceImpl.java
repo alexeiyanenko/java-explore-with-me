@@ -58,6 +58,7 @@ public class CommentServiceImpl implements CommentService {
             throw new AccessDeniedException("Пользователь с id " + userId + " не является автором комментария");
         }
         oldComment.setText(commentRequestDto.getText());
+        oldComment.setUpdated(LocalDateTime.now());
         CommentResponseDto updateComment = commentMapper.toCommentResponseDto(commentRepository.save(oldComment));
         log.info("Комментарий с id {} успешно обновлен", updateComment.getId());
         return updateComment;

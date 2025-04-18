@@ -14,12 +14,18 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/comments/{eventId}")
+@RequestMapping("/comments")
 @RequiredArgsConstructor
 public class PublicCommentController {
     private final CommentService commentService;
 
-    @GetMapping
+    @GetMapping("/view/{commentId}")
+    public CommentResponseDto getCommentById(@PathVariable Long commentId) {
+        log.info("Запрос на получение комментария с id {}", commentId);
+        return commentService.getCommentByIdAdmin(commentId);
+    }
+
+    @GetMapping("/{eventId}")
     public List<CommentResponseDto> getAllCommentsByEventId(@PathVariable Long eventId,
                                                             @RequestParam(defaultValue = "0") int from,
                                                             @RequestParam(defaultValue = "10") int size) {
